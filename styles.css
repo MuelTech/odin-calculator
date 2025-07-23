@@ -1,0 +1,98 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* border: 1px solid red; */
+    height: 500px;
+    width: 350px;
+    border-radius: 10px;
+    background-color: #60665e;
+}
+
+.result-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 20px;
+    font-size: 45px;
+    /* border: 1px solid red; */
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #bbceaa;
+}
+
+.result-para {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.clear-delete-container {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.keypad-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+    height: 300px;
+}
+
+.column-one,
+.column-two,
+.column-three,
+.column-four {
+    display: flex;
+    /* border: 1px solid red; */
+    height: 60px;
+    justify-content: space-between;
+}
+
+button {
+    width: 70px;
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    border-radius: 6px;
+    background-color: rgb(177, 172, 172);
+}
+
+.clear-btn, 
+.delete-btn {
+    width: 150px;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.operator-btn {
+    background-color: rgb(93, 219, 219);
+}
+
+.clear-btn {
+    background-color: rgb(235, 105, 105);
+}
+
+.delete-btn {
+    background-color: rgb(235, 105, 105);
+}
