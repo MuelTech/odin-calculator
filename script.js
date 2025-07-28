@@ -79,7 +79,7 @@ btn.forEach((button) => {
             if (operatorCheck.includes(inp)) {
                 if (num1  && num2  && operator) {
                 result = operate(num1, num2, operator)
-                num1 = result;
+                num1 = formatNumber(result);
                 num2 = '';
                 operator = inp;
                 showResult(num1);
@@ -175,4 +175,11 @@ function clearDisplay() {
 
 function showResult(inp) {
     return resultPara.textContent = inp;
+}
+
+function formatNumber(result) {
+    if (Math.abs(result) >= 1e9) {
+        return result.toExponential(3);
+    }
+    return +Number(result).toFixed(3);
 }
