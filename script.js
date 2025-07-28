@@ -20,33 +20,7 @@ btn.forEach((button) => {
 
         if (inp == 'DELETE') {
             if (!result && !num1 && !num2) return resultPara.textContent = '0';
-
-            // if ()
         }
-
-    //         if (!result && !num1 && !num2) return showResult();
-
-    //         if (num1) {
-    //             if (!num2 && num1) {
-    //             num1 = num1.slice(0, -1);
-                
-    //             if (num1.length == 1) showResult();
-
-    //             if (num1 == '') num1 = '';
-    //             console.log(num1);
-    //             return;
-    //             }
-            
-    //         if (num2) {
-    //             if (num1)
-    //             num2 = num2.slice(0, -1);
-    //             if (num2 == '') num2 = '';
-    //             console.log(num2);
-    //             showResult(num2);
-    //             return;
-    //         }
-    //     }
-    // }
 
         if (operator == '=' && result && !operatorCheck.includes(inp) && inp != 'DELETE') {
             console.log('got you!');
@@ -61,11 +35,6 @@ btn.forEach((button) => {
 
                 operator = inp;
             } 
-            // if (result) {
-            //     num2 = inp;
-            //     console.log(num2);
-            //     return;
-            // }
 
             if (operatorCheck.includes(inp) && !num1) {
                 num1 = '0'; 
