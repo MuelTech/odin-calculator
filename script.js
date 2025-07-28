@@ -159,9 +159,8 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
     if (num1 === '0' && num2 === '0') {
-        // clearDisplay();
-        //I can use textContent here.
-        return 'Result is undefined';
+        resultPara.style.fontSize = '15px';
+        return resultPara.textContent = 'Result is undefined';
     }
     return num1 / num2;
 }
