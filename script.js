@@ -78,6 +78,9 @@ function showResult(inp) {
 }
 
 function formatNumber(result) {
+    if (isNaN(result)) {
+        return result;
+    }
     if (Math.abs(result) >= 1e9) {
         return result.toExponential(3);
     }
@@ -91,14 +94,16 @@ function performCalculation(inp) {
         return;
     }
     if (inp == 'DELETE') {
-        if (!result && !leftOperand && !rightOperand) return resultPara.textContent = '0';
+        if (!result && !leftOperand && !rightOperand) {
+            return resultPara.textContent = '0';}
     }
     if (operator == '=' && result && !operatorCheck.includes(inp) && inp != 'DELETE') {
         console.log('got you!');
         clearDisplay();
     }
     if (!operatorCheck.includes(operator)) {
-        if (!rightOperand && inp == '=' ) return;
+        if (!rightOperand && inp == '=' ) {
+            return;}
         if (operatorCheck.includes(inp)) {
             operator = inp;
         } 
@@ -106,7 +111,9 @@ function performCalculation(inp) {
             leftOperand = '0'; 
             showResult(leftOperand);
         } 
-        if (operatorCheck.includes(inp)) return operator = inp;
+        if (operatorCheck.includes(inp)) {
+            return operator = inp;
+        }
         if (inp == '.'  && !leftOperand) {
             leftOperand = '0';
             showResult(leftOperand);
