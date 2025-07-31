@@ -3,171 +3,71 @@ const btn = document.querySelectorAll('button');
 const resultPara = document.querySelector('.result-para');
 
 let operatorCheck = ['+','-','*','/','='];
-let num1 = '';
-let num2 = '';
+let leftOperand = '';
+let rightOperand = '';
 let operator = '';
 let result = '';
 
-btn.forEach((button) => {
+btn.forEach(button => {
     button.addEventListener('click', (e) => {
         const inp = e.target.textContent;
-
-        if (inp == 'CLEAR') {
-            clearDisplay();
-            resultPara.textContent = '0';
-            return;
-        }
-
-        if (inp == 'DELETE') {
-            if (!result && !num1 && !num2) return resultPara.textContent = '0';
-        }
-
-        if (operator == '=' && result && !operatorCheck.includes(inp) && inp != 'DELETE') {
-            console.log('got you!');
-            clearDisplay();
-        }
-
-        if (!operatorCheck.includes(operator)) {
-
-            if (!num2 && inp == '=' ) return;
-            
-            if (operatorCheck.includes(inp)) {
-
-                operator = inp;
-            } 
-
-            if (operatorCheck.includes(inp) && !num1) {
-                num1 = '0'; 
-                showResult(num1);
-            } if (operatorCheck.includes(inp)) return operator = inp;
-
-            if (inp == '.'  && !num1) {
-                num1 = '0';
-                showResult(num1);
-                console.log(num1);
-            } 
-            if (inp == '.') {
-                if (!num1.includes(inp)) {
-                    num1 += inp;
-                    showResult(num1);
-                } 
-                return;
-            }
-            
-
-            if (inp == 'DELETE') {
-                if (!num2 && num1 && !result) {
-                    num1 = num1.slice(0, -1);
-                    showResult(num1);
-                    if (num1.length == 0) {
-                        console.log('working bro!');
-                        resultPara.textContent = '0' 
-                        num1 = '';
-                    } 
-                    console.log(num1);
-                    return;
-                }
-                return;
-            }
-
-            num1 += inp
-            showResult(num1);
-            console.log(num1);
-            
-
-        } else {
-            if (operatorCheck.includes(inp)) {
-                if (num1  && num2  && operator) {
-                result = operate(num1, num2, operator)
-                num1 = formatNumber(result);
-                num2 = '';
-                operator = inp;
-                showResult(num1);
-                console.log(num1);
-                return;
-                }
-            }
-
-            if (num1 && !operatorCheck.includes(inp)) {
-
-                if (inp == '.') {
-                    if (!num2.includes(inp)) {
-                        num2 += inp;
-                        showResult(num2);
-                    } 
-                    return;
-                }
-
-                if (inp == 'DELETE') {
-                    console.log('test');
-                    if (num1 && num2 && !result) {
-                        num2 = num2.slice(0, -1);
-                        showResult(num2);
-                        if (num2.length == 0) {
-                            console.log('working bro!');
-                            resultPara.textContent = '0' 
-                            num2 = '';
-                        } 
-                        console.log(num2);
-                        return;
-                    }
-                    return;
-                }
-
-            num2 += inp;
-            showResult(num2);
-            console.log(num2);
-            } else {
-
-                if (!num2 && inp == '=') return;
-
-
-                operator = inp;
-            console.log(operator);
-            }
-        }
+        button.classList.add('pressed');
+        performCalculation(inp);
+        setTimeout(() => button.classList.remove('pressed'), 150);
     });
 })
 
-function operate (num1, num2, operator) {
+document.addEventListener('keydown', (e) => {
+    const inputKey = e.key; 
+    btn.forEach(button => {
+        const buttonText = button.textContent; 
+        if ((inputKey == 'Backspace' && buttonText == 'DELETE') || buttonText == inputKey) {
+            button.classList.add('pressed');
+            performCalculation(buttonText);
+            setTimeout(() => button.classList.remove('pressed'), 150);
+        } 
+    })
+});
+
+function operate (leftOperand, rightOperand, operator) {
             switch(operator) {
                 case '+':
-                    return add(num1, num2)
+                    return add(leftOperand, rightOperand)
                 case '-':
-                    return subtract(num1, num2);
+                    return subtract(leftOperand, rightOperand);
                 case '*':
-                    return multiply(num1, num2);
+                    return multiply(leftOperand, rightOperand);
                 case '/':
-                    return divide(num1, num2);
+                    return divide(leftOperand, rightOperand);
                 default:
             }
 }
 
-function add(num1, num2) {
-    return  +num1 + +num2;
+function add(leftOperand, rightOperand) {
+    return  +leftOperand + +rightOperand;
 }
 
 
-function subtract(num1, num2) {
-    return num1 - num2;
+function subtract(leftOperand, rightOperand) {
+    return leftOperand - rightOperand;
 
 }
 
-function multiply(num1, num2) {
-    return num1 * num2;
+function multiply(leftOperand, rightOperand) {
+    return leftOperand * rightOperand;
 }
 
-function divide(num1, num2) {
-    if (num1 === '0' && num2 === '0') {
+function divide(leftOperand, rightOperand) {
+    if (leftOperand === '0' && rightOperand === '0') {
         resultPara.style.fontSize = '15px';
         return resultPara.textContent = 'Result is undefined';
     }
-    return num1 / num2;
+    return leftOperand / rightOperand;
 }
 
 function clearDisplay() {
-    num1 = '';
-    num2 = '';
+    leftOperand = '';
+    rightOperand = '';
     operator = '';
     result = '';
     showResult(result);
@@ -182,4 +82,102 @@ function formatNumber(result) {
         return result.toExponential(3);
     }
     return +Number(result).toFixed(3);
+}
+
+function performCalculation(inp) {
+    if (inp == 'CLEAR') {
+        clearDisplay();
+        resultPara.textContent = '0';
+        return;
+    }
+    if (inp == 'DELETE') {
+        if (!result && !leftOperand && !rightOperand) return resultPara.textContent = '0';
+    }
+    if (operator == '=' && result && !operatorCheck.includes(inp) && inp != 'DELETE') {
+        console.log('got you!');
+        clearDisplay();
+    }
+    if (!operatorCheck.includes(operator)) {
+        if (!rightOperand && inp == '=' ) return;
+        if (operatorCheck.includes(inp)) {
+            operator = inp;
+        } 
+        if (operatorCheck.includes(inp) && !leftOperand) {
+            leftOperand = '0'; 
+            showResult(leftOperand);
+        } 
+        if (operatorCheck.includes(inp)) return operator = inp;
+        if (inp == '.'  && !leftOperand) {
+            leftOperand = '0';
+            showResult(leftOperand);
+            console.log(leftOperand);
+        } 
+        if (inp == '.') {
+            if (!leftOperand.includes(inp)) {
+                leftOperand += inp;
+                showResult(leftOperand);
+            } 
+            return;
+        }
+        if (inp == 'DELETE') {
+            if (!rightOperand && leftOperand && !result) {
+                leftOperand = leftOperand.slice(0, -1);
+                showResult(leftOperand);
+                if (leftOperand.length == 0) {
+                    console.log('working bro!');
+                    resultPara.textContent = '0' 
+                    leftOperand = '';
+                } 
+                console.log(leftOperand);
+                return;
+            }
+            return;
+        }
+        leftOperand += inp
+        showResult(leftOperand);
+        console.log(leftOperand);
+    } else {
+        if (operatorCheck.includes(inp)) {
+            if (leftOperand  && rightOperand  && operator) {
+            result = operate(leftOperand, rightOperand, operator)
+            leftOperand = formatNumber(result);
+            rightOperand = '';
+            operator = inp;
+            showResult(leftOperand);
+            console.log(leftOperand);
+            return;
+            }
+        }
+        if (leftOperand && !operatorCheck.includes(inp)) {
+            if (inp == '.') {
+                if (!rightOperand.includes(inp)) {
+                    rightOperand += inp;
+                    showResult(rightOperand);
+                } 
+                return;
+            }
+            if (inp == 'DELETE') {
+                console.log('test');
+                if (leftOperand && rightOperand && !result) {
+                    rightOperand = rightOperand.slice(0, -1);
+                    showResult(rightOperand);
+                    if (rightOperand.length == 0) {
+                        console.log('working bro!');
+                        resultPara.textContent = '0' 
+                        rightOperand = '';
+                    } 
+                    console.log(rightOperand);
+                    return;
+                }
+                return;
+            }
+        rightOperand += inp;
+        showResult(rightOperand);
+        console.log(rightOperand);
+        } else {
+            if (!rightOperand && inp == '=') return;
+            operator = inp;
+        console.log(operator);
+        }
+    }
 }
