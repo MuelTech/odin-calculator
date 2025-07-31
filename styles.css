@@ -72,7 +72,13 @@ button {
     font-weight: 700;
     border-radius: 6px;
     background-color: rgb(177, 172, 172);
+    transition: background-color 0.15s ease, transform 0.1s eas
 }
+
+button.pressed {
+    transform: scale(0.96);
+}
+
 
 .clear-btn, 
 .delete-btn {
@@ -92,3 +98,9 @@ button {
 .delete-btn {
     background-color: rgb(235, 105, 105);
 }
+
+.equal-btn {
+    background-color: rgb(235, 105, 105);
+} 
+
+
